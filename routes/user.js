@@ -23,6 +23,7 @@ router.put(
   [
     check("id", "El id no es válido").isMongoId(),
     check("id").custom(isValidUserId),
+    check("rol").custom(isValidRol),
     fieldsValidation,
   ],
   usersPut
@@ -47,7 +48,11 @@ router.post(
   usersPost
 );
 
-router.delete("/", usersDelete);
+router.delete("/:id",[
+  check("id", "El id no es válido").isMongoId(),
+  check("id").custom(isValidUserId),
+  fieldsValidation
+], usersDelete);
 
 router.patch("/", usersPatch);
 
